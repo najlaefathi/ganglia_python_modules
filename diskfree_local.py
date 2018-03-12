@@ -58,10 +58,15 @@ def get_value(name):
     # get fs stats
     try:
         disk = os.statvfs(path)
+        total = (disk.f_blocks * disk.f_frsize)
+        avail_to_root = (disk.f_bfree * disk.f_frsize)
+        avail_to_user = (disk.f_bavail * disk.f_frsize)
         if unit_type == 'percent':
-            result = (float(disk.f_bavail) / float(disk.f_blocks)) * 100
+            result = (float( avail_to_root) / float(total)) * 100
+            # result = (float(disk.f_bavail) / float(disk.f_blocks)) * 100
         else:
-            result = (disk.f_bavail * disk.f_frsize) / float(2**30)  # GB
+            result = float(avail_to_user) / float(2**30)
+            # result = (disk.f_bavail * disk.f_frsize) / float(2**30)  # GB
 
     except OSError:
         result = 0
@@ -122,19 +127,19 @@ def metric_init(lparams):
                         units = '%'
                     #to show absolute unit type:
                     #remove comment from 'else units = 'GB'' and make sure descirptos.append(...) is aligned with if and else
-                    #else:
-                    #    units = 'GB'
-                        descriptors.append({
-                            'name': NAME_PREFIX + unit_type + '_' + path_key,
-                            'call_back': get_value,
-                            'time_max': 60,
-                            'value_type': 'float',
-                            'units': units,
-                            'slope': 'both',
-                            'format': '%f',
-                            'description': "Disk space available (%s) on %s" % (units, mount_info[1]),
-                            'groups': 'disk'
-                        })
+                    else:
+                        units = 'GB'
+                    descriptors.append({
+                        'name': NAME_PREFIX + unit_type + '_' + path_key,
+                        'call_back': get_value,
+                        'time_max': 60,
+                        'value_type': 'float',
+                        'units': units,
+                        'slope': 'both',
+                        'format': '%f',
+                        'description': "Disk space available (%s) on %s" % (units, mount_info[1]),
+                        'groups': 'disk'
+                    })
 
     return descriptors
 
