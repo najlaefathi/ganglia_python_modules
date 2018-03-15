@@ -1,0 +1,47 @@
+modules {
+  module {
+    name     = "mem_stats"
+    language = "python"
+  }
+}
+
+collection_group {
+  collect_every  = 20
+  time_threshold = 30
+/*
+  metric {
+    name_match = "ram_(.+)"
+  }
+*/
+
+  metric {
+    name = "ram_free_percentage"
+    title = "mem_free_%"
+    value_threshold = 1.0
+  }
+
+  metric {
+    name = "ram_used_percentage"
+    title = "mem_used_%"
+    value_threshold = 1.0
+  }
+
+  metric {
+    name = "ram_swap_free_percentage"
+    title = "swap_free_%"
+    value_threshold = 1.0
+  }
+
+  metric {
+    name = "ram_swap_used_percentage"
+    title = "swap_used_%"
+    value_threshold = 1.0
+  }
+
+  metric {
+    name = "ram_buff-cache_percentage"
+    title = "mem_buffer/cache_%"
+    value_threshold = 1.0
+  }
+
+}

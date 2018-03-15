@@ -152,48 +152,48 @@ def metric_init(params):
 
     # ram_buff-cache =  ram_cached + ram_buffers
     descriptors.append(create_desc(Desc_Skel, {
-        "name": "ram_buff-cache",
-        "orig_name": "NA",
-        "units": "GB",
-        "description": "buff-cache memory",
-    }))
+                "name": "ram_buff-cache",
+                "orig_name": "NA",
+                "units": "GB",
+                "description": "buff-cache memory",
+                }))
 
 
     #################### percentage ########################
     descriptors.append(create_desc(Desc_Skel, {
-        "name": "ram_free_percentage",
-        "orig_name": "MemFree",
-        "units": "%",
-        "description": "The amount of physical RAM left unused by the system. ",
-    }))
+                "name": "ram_free_percentage",
+                "orig_name": "MemFree",
+                "units": "%",
+                "description": "The amount of physical RAM left unused by the system. ",
+                }))
 
     descriptors.append(create_desc(Desc_Skel, {
-        "name": "ram_used_percentage",
-        "orig_name": "NA",
-        "units": "%",
-        "description": "The amount of physical RAM used by the system. ",
-    }))
+                "name": "ram_used_percentage",
+                "orig_name": "NA",
+                "units": "%",
+                "description": "The amount of physical RAM used by the system. ",
+                }))
 
     descriptors.append(create_desc(Desc_Skel, {
-        "name": "ram_buff-cache_percentage",
-        "orig_name": "Buffers",
-        "units": "%",
-        "description": "Buff-cache",
-    }))
+                "name": "ram_buff-cache_percentage",
+                "orig_name": "Buffers",
+                "units": "%",
+                "description": "Buff-cache",
+                }))
 
     descriptors.append(create_desc(Desc_Skel, {
-        "name": "ram_swap_free_percentage",
-        "orig_name": "SwapFree",
-        "units": "%",
-        "description": "Total amount of swap memory free",
-    }))
+                "name": "ram_swap_free_percentage",
+                "orig_name": "SwapFree",
+                "units": "%",
+                "description": "Total amount of swap memory free",
+                }))
 
     descriptors.append(create_desc(Desc_Skel, {
-        "name": "ram_swap_used_percentage",
-        "orig_name": "NA",
-        "units": "%",
-        "description": "Calculated metric.  SwapTotal - SwapFree",
-    }))
+                "name": "ram_swap_used_percentage",
+                "orig_name": "NA",
+                "units": "%",
+                "description": "Calculated metric.  SwapTotal - SwapFree",
+                }))
 
     # We need a metric_map that maps metric_name to the index in /proc/meminfo
     metric_map = {}
