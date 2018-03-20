@@ -106,7 +106,7 @@ def metric_init(lparams):
     descriptors = []
     for line in f:
         # We only want local file systems
-        if line.startswith('udev') or line.startswith('/dev'):
+        if line.startswith('udev') or line.startswith('/dev') or line.startswith('none') or line.startswith('tmpfs'):
             mount_info = line.split()
 
             # create key from path
