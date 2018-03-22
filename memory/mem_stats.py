@@ -2,6 +2,7 @@
 #import traceback
 #import os
 import re
+import math
 
 ###############################################################################
 # Explanation of metrics in /proc/meminfo can be found here
@@ -27,13 +28,13 @@ def metrics_handler(name):
 
     ##### absolute calculus
     if name == 'ram_swap_used':
-        return metrics_handler('ram_swap_total') - metrics_handler('ram_swap_free')
+        return abs(metrics_handler('ram_swap_total') - metrics_handler('ram_swap_free'))
     if name == 'ram_used':
         # ram_used = memTotal - memFree - shared - buff-cache
-        return metrics_handler('ram_total') - metrics_handler('ram_free') - metrics_handler('ram_shmem') - (metrics_handler('ram_buffers') + metrics_handler('ram_cached'))
+        return abs(metrics_handler('ram_total') - metrics_handler('ram_free') - metrics_handler('ram_shmem') - (metrics_handler('ram_buffers') + metrics_handler('ram_cached')))
     if name == 'ram_buff-cache':
         # ram_buff-cache =  ram_cached + ram_buffers
-        return metrics_handler('ram_buffers') + metrics_handler('ram_cached')
+        return abs(metrics_handler('ram_buffers') + metrics_handler('ram_cached'))
 
     ##### percentage calculus
     if name == 'ram_free_percentage':
@@ -44,7 +45,7 @@ def metrics_handler(name):
         return (float(metrics_handler('ram_swap_used')) / float(metrics_handler('ram_swap_total'))) * 100
     if name == 'ram_swap_free_percentage':
         return (float(metrics_handler('ram_swap_free')) / float(metrics_handler('ram_swap_total'))) * 100
-    if name == 'ram_buff-cache_percentage':
+    if name == 'ram_buff-cache_used_percentage':
         return (float((metrics_handler('ram_buffers') + metrics_handler('ram_cached'))) / float(metrics_handler('ram_total'))) * 100
 
 
@@ -175,7 +176,7 @@ def metric_init(params):
                 }))
 
     descriptors.append(create_desc(Desc_Skel, {
-                "name": "ram_buff-cache_percentage",
+                "name": "ram_buff-cache_used_percentage",
                 "orig_name": "Buffers",
                 "units": "%",
                 "description": "Buff-cache",
