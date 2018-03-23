@@ -31,7 +31,8 @@ def metrics_handler(name):
         return abs(metrics_handler('ram_swap_total') - metrics_handler('ram_swap_free'))
     if name == 'ram_used':
         # ram_used = memTotal - memFree - shared - buff-cache
-        return abs(metrics_handler('ram_total') - metrics_handler('ram_free') - metrics_handler('ram_shmem') - (metrics_handler('ram_buffers') + metrics_handler('ram_cached')))
+        return abs(metrics_handler('ram_total') - metrics_handler('ram_free') - ( metrics_handler('ram_buffers') + metrics_handler('ram_cached')))
+
     if name == 'ram_buff-cache':
         # ram_buff-cache =  ram_cached + ram_buffers
         return abs(metrics_handler('ram_buffers') + metrics_handler('ram_cached'))
