@@ -39,7 +39,7 @@ collection_group {
   }
 
   metric {
-    name = "ram_buff-cache_percentage"
+    name = "ram_buff-cache_used_percentage"
     title = "mem_buffer/cache_%"
     value_threshold = 1.0
   }

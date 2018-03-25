@@ -2,7 +2,6 @@
 #import traceback
 #import os
 import re
-import math
 
 ###############################################################################
 # Explanation of metrics in /proc/meminfo can be found here
@@ -28,14 +27,12 @@ def metrics_handler(name):
 
     ##### absolute calculus
     if name == 'ram_swap_used':
-        return abs(metrics_handler('ram_swap_total') - metrics_handler('ram_swap_free'))
+        return metrics_handler('ram_swap_total') - metrics_handler('ram_swap_free')
     if name == 'ram_used':
-        # ram_used = memTotal - memFree - shared - buff-cache
+        # ram_used = memTotal - memFree - buff-cache
         return abs(metrics_handler('ram_total') - metrics_handler('ram_free') - ( metrics_handler('ram_buffers') + metrics_handler('ram_cached')))
-
-    if name == 'ram_buff-cache':
         # ram_buff-cache =  ram_cached + ram_buffers
-        return abs(metrics_handler('ram_buffers') + metrics_handler('ram_cached'))
+        return metrics_handler('ram_buffers') + metrics_handler('ram_cached')
 
     ##### percentage calculus
     if name == 'ram_free_percentage':
